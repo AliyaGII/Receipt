@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function Metrics() {
+    var currentMetric = 0,
+        tarrif = 0.22,
+        date = "",
+        isPaid = false,
+        metrics = [], 
+        currentSum = 0,
+        conductor = "",
+        paymentDate = "";
+        prepayment = 0;
+        debt = 0;
+    
+    function setMetric(metric, metricDate, payedBill) {
+        currentMetric = metric;
+        date = metricDate;
+        currentSum = tarrif * metric;
+        isPaid = payedBill;
+    }
+
+    function Pay(sum, conductorPay, prepayment) {
+        var delta = sum - currentMetric * tarrif;
+        conductor = conductorPay;
+        paymentDate = new Date();
+        currentSum = currentSum -  sum;
+
+        if(difference >= 0) {
+                            prepayment = difference;
+                            debt = 0;
+                        }
+                        else {
+                            debt = difference;
+                            prepay = 0;
+                            isPaid = true; 
+                        }
+
+
+        metrics.push({
+            currentMetric, 
+            isPaid, 
+            date, 
+            currentSum, 
+            conductor,
+            paymentDate, 
+            prepayment,
+            debt
+        });
+
+    }
+
+    function getMetric() {
+        var innerMetrics = {
+            currentMetric,
+            currentSum, 
+            date,  
+            isPaid,
+            prepayment,
+            debt
+        };
+
+        if (isPaid) {
+            innerMetrics.conductor = conductor;
+            innerMetrics.paymentDate = paymentDate;
+        }
+
+        return innerMetrics;
+    }
+
+    return {
+        setMetric, getMetric, Pay
+    }
+}
+
+ var m1 = new Metrics();
+ var m2 = new Metrics();
+ m1.set(111, "19.11.2019", true);
+ m2.set(3333, "21.11.2019", false);
+
+ m1.pay(22,"Somebody");
+ m2.pay(444,"Someone");
+
+ console.log(m1.get());
+ console.log(m2.get());
+    </script>
+</body>
